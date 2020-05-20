@@ -28,7 +28,7 @@ const rutas_registro = require('./routes/registro-autor')
 app.use(rutas_registro);
 
   // Puerto
-  const port = 3001;
+  const port = process.env.PORT || 3001;
   // Levantar el servidor para escuchar los puertos
   app.listen(port, () => {
     console.log(`Escuchando API en http://localhost:${port}`);
