@@ -25,8 +25,7 @@ router.get("/info-publicacion/obtener/:id", (req, res) => {
 router.get("/pdf/:id/", async (req, res) => {
   try {
     let id = req.params.id;
-    let titulo = req.params.titulo;
-
+    
     _controlador
     .consultarPublicacionJJ(id)
     .then( async(respuestaDB) => {
@@ -40,9 +39,6 @@ router.get("/pdf/:id/", async (req, res) => {
       let bufferPDF = await crearPDF(registros, "reportePruebas");
       let stream = new PassThrough();
       stream.end(bufferPDF);
-      console.log("xxxxxxxxxxxxxxxxx");
-      console.log(registros);
-      console.log("xxxxxxxxxxxxxxxxx");
       stream.pipe(res);
 
 //      let mensaje = registros.length > 0 ? "Publicacion consultada." : "Sin registro.";
