@@ -25,8 +25,8 @@ app.use(rutas_info_publicacion);
 const rutas_seguimientos = require('./routes/seguimiento-publicacion')
 app.use(rutas_seguimientos);
 
-const rutas_autenticacion = require("./routes/autentificacion");
-app.use(rutas_autenticacion);
+//const rutas_autenticacion = require("./routes/autentificacion");
+//app.use(rutas_autenticacion);
 
 const rutas_registro = require('./routes/registro-autor')
 app.use(rutas_registro);

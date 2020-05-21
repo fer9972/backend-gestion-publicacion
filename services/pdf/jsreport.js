@@ -1,7 +1,16 @@
 const JSReport = require("jsreport-core")();
+
 const fs = require("fs");
 const path = require('path');
 
+let jsreportStarted = false;
+const initReport = () => {
+    if (jsreportStarted) {
+        return Promise.resolve(JSReport);
+    }
+    jsreportStarted = true;
+    return JSReport.init();
+};
 const crearPlantilla = (nombrePlantilla) => {
   const filePath = path.join(process.cwd(), 'templates', `reportePruebas.html`)
   let html = fs.readFileSync(filePath).toString();
@@ -15,7 +24,7 @@ const crearPlantilla = (nombrePlantilla) => {
 
 const crearPDF = async (data, nombrePlantilla) => {
   // Inicializar el JSReport
-  await JSReport.init();
+  await initReport();
 
   let infoPdf = {};
   infoPdf.template = crearPlantilla(nombrePlantilla);

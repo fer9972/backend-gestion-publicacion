@@ -24,13 +24,12 @@ router.get("/info-publicacion/obtener/:id", (req, res) => {
 
 router.get("/pdf/:id/", async (req, res) => {
   try {
-    let info ={};
     let id = req.params.id;
     let titulo = req.params.titulo;
 
     _controlador
     .consultarPublicacionJJ(id)
-    .then((respuestaDB) => {
+    .then( async(respuestaDB) => {
       let registros = respuestaDB.rows[0];
       console.log("------------------");
       console.log(registros);
@@ -38,7 +37,7 @@ router.get("/pdf/:id/", async (req, res) => {
       //let autor = req.params.autor;
       res.set("Content-disposition", "attachment; filename=reporte.pdf");
       
-      let bufferPDF = crearPDF(registros, "reportePruebas");
+      let bufferPDF = await crearPDF(registros, "reportePruebas");
       let stream = new PassThrough();
       stream.end(bufferPDF);
       console.log("xxxxxxxxxxxxxxxxx");
