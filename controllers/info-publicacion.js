@@ -133,7 +133,9 @@ let consultarPublicacion = async (id) => {
   try {
       console.log(id);
     let _servicio = new servicioPg();
-    let sql = `select public.pu_propuestas_publicaciones.id, titulo,facultad,tipo_publicacion,area from public.pu_propuestas_publicaciones
+    let sql = `select public.pu_propuestas_publicaciones.id, titulo,facultad,tipo_publicacion,area,resenia_autores,
+    resumen,aspectos_novedosos,contribucion_area,publico_objetivo,datos_proyecto_asociado,
+    forma_ajusta_mision_udem,observaciones_finales from public.pu_propuestas_publicaciones
     inner join public.pu_autores_publicaciones on public.pu_propuestas_publicaciones.id = public.pu_autores_publicaciones.id_publicacion
     where public.pu_autores_publicaciones.id_autor = '${id}';`;
     let respuesta = await _servicio.ejecutarSql(sql);
