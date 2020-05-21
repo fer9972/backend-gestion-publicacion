@@ -65,7 +65,7 @@ router.post("/login", (req, res) => {
           let token = _controlador.generarToken(persona);
           res
             .status(200)
-            .send({ ok: true, info: token, mensaje: "Persona autenticada.", rol: persona.rol });
+            .send({ ok: true, info: token, mensaje: "Persona autenticada.", rol: persona.rol,nombre: persona.nombre });
         } else {
           res.status(400).send({
             ok: false,

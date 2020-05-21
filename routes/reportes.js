@@ -10,12 +10,15 @@ const { crearPDF } = require("../services/pdf/jsreport");
 router.get("/pdf", async (req, res) => {
   try {
     res.set("Content-disposition", "attachment; filename=reporte.pdf");
-    let info = {
+    /*let info = {
         nombre: "Santiago",
-        people: ["Yehuda Katz", "Alan Johnson", "Charles Jolley"],
-      };
+        people: ["Yehuda Katz", "Alan Johnson", "Charles Jolley", "fer"],
+      };*/
+      console.log(req)
+      let info1 = req.body;
+       console.log("hola" + info1)
     
-    let bufferPDF = await crearPDF(info, "reportePruebas");
+    let bufferPDF = await crearPDF(info1, "reportePruebas");
 
     let stream = new PassThrough();
     stream.end(bufferPDF);
