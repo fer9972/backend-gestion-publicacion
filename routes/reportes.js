@@ -31,25 +31,30 @@ router.get("/pdf/:id/", async (req, res) => {
     _controlador
     .consultarPublicacionJJ(id)
     .then((respuestaDB) => {
-      let registros = respuestaDB.rows;
-      info = registros;
-      let mensaje = registros.length > 0 ? "Publicacion consultada." : "Sin registro.";
-      res.send({ ok: true, info: registros, mensaje });
+      let registros = respuestaDB.rows[0];
+      console.log("------------------");
+      console.log(registros);
+      console.log("------------------");
+      //let autor = req.params.autor;
+      res.set("Content-disposition", "attachment; filename=reporte.pdf");
+      
+      let bufferPDF = crearPDF(registros, "reportePruebas");
+      let stream = new PassThrough();
+      stream.end(bufferPDF);
+      console.log("xxxxxxxxxxxxxxxxx");
+      console.log(registros);
+      console.log("xxxxxxxxxxxxxxxxx");
+      stream.pipe(res);
+
+//      let mensaje = registros.length > 0 ? "Publicacion consultada." : "Sin registro.";
+  //    res.send({ ok: true, info: registros, mensaje });
       
     })
     .catch((error) => {
       res.send(error);
+      console.log(error);
     });
 
-    console.log("publicacion: "+info);
-    //let autor = req.params.autor;
-    res.set("Content-disposition", "attachment; filename=reporte.pdf");
-    
-    let bufferPDF = await crearPDF(info, "reportePruebas");
-
-    let stream = new PassThrough();
-    stream.end(bufferPDF);
-    stream.pipe(res);
     //return res.send("OK");
   } catch (error) {
     return res.status(500).send(error);
